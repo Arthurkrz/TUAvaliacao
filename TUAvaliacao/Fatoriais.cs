@@ -6,7 +6,6 @@ namespace TUAvaliacao
     {
         public int CalcularFatorial(int numero)
         {
-            int resultado = 1;
             if (numero < 0)
             {
                 throw new ArgumentException("O número fatorial não pode ser negativo.");
@@ -17,13 +16,8 @@ namespace TUAvaliacao
             }
             else
             {
-                for (int i = 1; i <= numero; i++)
-                {
-                    resultado *= i;
-                }
+                return numero *= CalcularFatorial(numero - 1);
             }
-
-            return resultado;
         }
     }
 }
