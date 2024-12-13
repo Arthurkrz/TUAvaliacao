@@ -41,7 +41,8 @@ namespace TUAvaliacao.Tests
         public void CalcularFatorial_DeveEmitirException_QuandoNumeroNegativo()
         {
             // Act & Assert
-            Assert.Throws<ArgumentException>(() => _sut.CalcularFatorial(-1));
+            Assert.Throws<ArgumentException>(() => 
+                         _sut.CalcularFatorial(-1));
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using TUAvaliacao.Contracts;
 
 namespace TUAvaliacao
 {
-    public class Numeros : INumeros
+    public class Numeros
     {
         public string VerificarSequencia(List<int> numeros)
         {
-            if (ListaVazia(numeros))
+            if (numeros == null)
             {
                 return "Lista Vazia ou Nula.";
             }
@@ -50,25 +50,6 @@ namespace TUAvaliacao
             else
             {
                 return "Nenhum.";
-            }
-        }
-        public bool ListaVazia(List<int> numeros)
-        {
-            if (numeros.Count == 0)
-            {   
-                return true;
-            }
-            else
-            {
-                foreach (var numero in numeros)
-                {
-                    if (numero != 0)
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
             }
         }
     }

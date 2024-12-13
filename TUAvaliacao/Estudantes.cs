@@ -3,72 +3,47 @@ using System.Collections.Generic;
 using System.Text;
 using TUAvaliacao.Entities;
 using System.Linq;
-using TUAvaliacao.Contracts;
 
 namespace TUAvaliacao
 {
-    public class Estudantes : IEstudantes
+    public class Estudantes
     {
         public List<string> ClassificarEstudantes(List<Estudante> estudantes)
         {
             List<string> nomes = new List<string>();
-            bool equal = false;
 
-            if (ListaVazia(estudantes))
+            if (estudantes == null)
             {
-                List<string> listaVazia = new List<string>();
-                return listaVazia;
+                return new List<string>();
             }
-
-            for (int i = 1; i < estudantes.Count; i++)
+            foreach (var estudante in estudantes)
             {
-                if (estudantes[i].Nota < 0 || estudantes[i].Nota > 10)
+                if (estudante.Nota < 0 || estudante.Nota > 10)
                 {
                     throw new ArgumentException
-                              ("Um ou mais estudantes apresentam notas negativas ou acima de 10.");
+                              ("Um ou mais estudantes apresentam notas " +
+                               "negativas ou acima de 10.");
                 }
-                else if (estudantes[i].Nota != estudantes[i - 1].Nota)
+            }
+
+            for (int i = 1; i <= estudantes.Count; i++)
+            {
+                if (String.Compare(estudantes[i].Nome, estudantes[i - 1].Nome) == 0)
                 {
-                    equal = false;
+                    estudantes.Sort((a, b) => b.Nota.CompareTo(a.Nota));
                 }
                 else
                 {
-                    equal = true;
+                    estudantes.Sort((a, b) => b.Nome.CompareTo(a.Nome));
                 }
             }
 
-            if (equal == true)
+            foreach (var estudante in estudantes)
             {
-                estudantes.Sort((a, b) => b.Nome.CompareTo(a.Nome));
-                foreach (var estudante in estudantes)
-                {
-                    nomes.Add(estudante.Nome);
-                }
-            }
-            else
-            {
-                estudantes.Sort((a, b) => b.Nota.CompareTo(a.Nota));
-                foreach (var estudante in estudantes)
-                {
-                    nomes.Add(estudante.Nome);
-                }
+                nomes.Add(estudante.Nome);
             }
 
             return nomes;
-        }
-
-        public bool ListaVazia(List<Estudante> estudantes)
-        {
-            for (int i = 0; i < estudantes.Count; i++)
-            {
-                if (!string.IsNullOrWhiteSpace(estudantes[i].Nome))
-                {
-                    return false;
-                }
-
-            }
-
-            return true;
         }
     }
 }

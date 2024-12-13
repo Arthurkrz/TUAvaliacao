@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using TUAvaliacao.Entities;
-using TUAvaliacao.Contracts;
 
 namespace TUAvaliacao
 {
-    public class Produtos : IProdutos
+    public class Produtos
     {
         public Dictionary<string, List<Produto>> AgruparPorCategoria
                                                  (List<Produto> produtos)
         {
-            if (ListaVazia(produtos))
+            if (produtos == null)
             {
                 return new Dictionary<string, List<Produto>>();
             }
@@ -36,26 +34,6 @@ namespace TUAvaliacao
             }
 
             return relatorio;
-        }
-
-        public bool ListaVazia(List<Produto> produtos)
-        {
-            if (produtos.Count == 0)
-            {
-                return true;
-            }
-            else
-            {
-                foreach (var produto in produtos)
-                {
-                    if (!string.IsNullOrWhiteSpace(produto.Nome))
-                    {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
         }
     }
 }

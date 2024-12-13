@@ -22,6 +22,7 @@ namespace TUAvaliacao
                     resultado *= i;
                 }
             }
+
             return resultado;
         }
     }

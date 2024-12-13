@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using TUAvaliacao.Contracts;
+using System.Linq;
 
 namespace TUAvaliacao
 {
-    public class Ordem : IOrdem
+    public class Ordem
     {
         public List<string> OrdenarStrings(List<string> palavras = null)
         {
-            if (ListaVazia(palavras))
+            if (palavras == null)
             {
                 List<string> listaVazia = new List<string>();
                 return listaVazia;
@@ -19,19 +18,6 @@ namespace TUAvaliacao
                 palavras.Sort(StringComparer.OrdinalIgnoreCase);
                 return palavras;
             }
-        }
-        public bool ListaVazia(List<string> palavras)
-        {
-            for (int i = 0; i < palavras.Count; i++)
-            {
-                if (!string.IsNullOrWhiteSpace(palavras[i]))
-                {
-                    return false;
-                }
-
-            }
-
-            return true;
         }
     }
 }

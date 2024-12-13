@@ -4,20 +4,17 @@ using Moq;
 using Bogus;
 using System.Collections.Generic;
 using System.Text;
-using TUAvaliacao.Contracts;
 
 namespace TUAvaliacao.Tests
 {
     public class OrdemTest
     {
         private readonly Ordem _sut;
-        private readonly Mock<IOrdem> _mockRepository;
         private readonly Faker _faker;
 
         public OrdemTest()
         {
             _sut = new Ordem();
-            _mockRepository = new Mock<IOrdem>();
             _faker = new Faker();
         }
 
@@ -31,8 +28,6 @@ namespace TUAvaliacao.Tests
             listaOrdenada.Add("Carlos");
             listaOrdenada.Add("Diego");
             listaOrdenada.Add("Eduardo");
-
-            _mockRepository.Setup(x => x.ListaVazia(listaOrdenada)).Returns(false);
 
             // Act & Assert
             _sut.OrdenarStrings(listaOrdenada);
@@ -49,8 +44,6 @@ namespace TUAvaliacao.Tests
             listaDesordenada.Add(_faker.Name.FirstName());
             listaDesordenada.Add(_faker.Name.FirstName());
 
-            _mockRepository.Setup(x => x.ListaVazia(listaDesordenada)).Returns(false);
-
             // Act & Assert
             _sut.OrdenarStrings(listaDesordenada);
         }
@@ -66,8 +59,6 @@ namespace TUAvaliacao.Tests
             listaDesordenada.Add(_faker.Name.FirstName());
             listaDesordenada.Add(_faker.Name.FirstName());
 
-            _mockRepository.Setup(x => x.ListaVazia(listaDesordenada)).Returns(false);
-
             // Act & Assert
             _sut.OrdenarStrings(listaDesordenada);
         }
@@ -77,15 +68,9 @@ namespace TUAvaliacao.Tests
         {
             // Arrange
             List<string> listaNula = new List<string>();
-            List<string> listaVazia = new List<string>();
-            listaVazia.Add("");
-
-            _mockRepository.Setup(x => x.ListaVazia(listaNula)).Returns(true);
-            _mockRepository.Setup(x => x.ListaVazia(listaVazia)).Returns(true);
 
             // Act & Assert
             _sut.OrdenarStrings(listaNula);
-            _sut.OrdenarStrings(listaVazia);
         }
     }
 }

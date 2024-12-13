@@ -1,24 +1,19 @@
-﻿using System;
+﻿using Bogus;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using Moq;
-using Bogus;
-using Xunit;
 using TUAvaliacao.Entities;
-using TUAvaliacao.Contracts;
+using Xunit;
 
 namespace TUAvaliacao.Tests
 {
     public class ProdutosTest
     {
         private readonly Produtos _sut;
-        private readonly Mock<IProdutos> _mockRepository;
         private readonly Faker _faker;
 
         public ProdutosTest()
         {
             _sut = new Produtos();
-            _mockRepository = new Mock<IProdutos>();
             _faker = new Faker();
         }
 
@@ -30,8 +25,6 @@ namespace TUAvaliacao.Tests
             // Arrange
             List<Produto> listaMultipla = new List<Produto>();
             listaMultipla.Add(produto);
-
-            _mockRepository.Setup(x => x.ListaVazia(listaMultipla)).Returns(false);
 
             // Act & Assert
             _sut.AgruparPorCategoria(listaMultipla);
@@ -46,8 +39,6 @@ namespace TUAvaliacao.Tests
             List<Produto> listaUnica = new List<Produto>();
             listaUnica.Add(produto);
 
-            _mockRepository.Setup(x => x.ListaVazia(listaUnica)).Returns(false);
-
             // Act & Assert
             _sut.AgruparPorCategoria(listaUnica);
         }
@@ -57,16 +48,9 @@ namespace TUAvaliacao.Tests
         {
             // Arrange
             List<Produto> listaNula = new List<Produto>();
-            List<Produto> listaVazia = new List<Produto>();
-            Produto produto = new Produto();
-            listaVazia.Add(produto);
-
-            _mockRepository.Setup(x => x.ListaVazia(listaNula)).Returns(true);
-            _mockRepository.Setup(x => x.ListaVazia(listaVazia)).Returns(true);
 
             // Act & Assert
             _sut.AgruparPorCategoria(listaNula);
-            _sut.AgruparPorCategoria(listaVazia);
         }
 
         [Fact]
@@ -80,8 +64,6 @@ namespace TUAvaliacao.Tests
                 Preco = 10
             };
             listaSemCategoria.Add(produto);
-
-            _mockRepository.Setup(x => x.ListaVazia(listaSemCategoria)).Returns(false);
 
             // Act & Assert
             Assert.Throws<ArgumentException>(() => _sut.AgruparPorCategoria
